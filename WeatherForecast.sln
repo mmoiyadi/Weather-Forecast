@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherForecastAPI", "WeatherForecastAPI\WeatherForecastAPI.csproj", "{312236CD-17D5-4EF2-AB5B-CCCA08830F35}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "WeatherForecastAPI\docker-compose.dcproj", "{E91E292A-4108-4092-BBD2-1D4765E5351B}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E91E292A-4108-4092-BBD2-1D4765E5351B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecastAdmin", "WeatherForecastAdmin\WeatherForecastAdmin.csproj", "{567D4E47-B902-4EC2-851B-92264255C591}"
 EndProject

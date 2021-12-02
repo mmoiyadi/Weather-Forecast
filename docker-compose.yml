@@ -7,14 +7,14 @@ networks:
 services:
   weatherforecastapi:
     container_name: 'weatherapi'
-    image: ${DOCKER_REGISTRY-}weatherforecastapi
+    
     ports:
       - "8080:80"
     depends_on:
       - "weather-postgres"
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./WeatherForecastAPI/Dockerfile
     networks:
       - dockerapi-dev
 
@@ -36,7 +36,7 @@ services:
   weatherforecast-processor:
     build:
       context: .
-      dockerfile: ../WeatherForecastProcessor/Dockerfile
+      dockerfile: ./WeatherForecastProcessor/Dockerfile
     depends_on:
       - "weather-postgres"
       - "rabbit-mq"
@@ -55,7 +55,7 @@ services:
   weatherforecast-admin:
     build:
       context: .
-      dockerfile: ../WeatherForecastAdmin/Dockerfile
+      dockerfile: ./WeatherForecastAdmin/Dockerfile
     ports:
       - "8081:80"
     depends_on:
