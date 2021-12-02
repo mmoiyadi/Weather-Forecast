@@ -1,11 +1,10 @@
 ﻿@page
 @model WeatherForecastModel
 @{
-    ViewData["Title"] = "Weather Forecast Information";
+    ViewData["Title"] = "Enter weather forecast information";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Enter weather forecast information.</p>
 <body>
     <form method="post" enctype="multipart/form-data" asp-controller="WeatherForecast" asp-action="Index">
         <table>

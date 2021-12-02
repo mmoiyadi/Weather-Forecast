@@ -4,8 +4,6 @@ using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,8 +22,8 @@ namespace WeatherForecastProcessor
         private EventingBasicConsumer _consumer;
 
         public Worker(IConfiguration config,
-                    IWeatherForecastRepository weatherForecastRepository,
-                    ILogger<Worker> logger)
+                      IWeatherForecastRepository weatherForecastRepository,
+                      ILogger<Worker> logger)
         {
             _logger = logger;
             _weatherForecastRepository = weatherForecastRepository;
@@ -69,7 +67,10 @@ namespace WeatherForecastProcessor
         private async void ProcessWeatherForecastReceived(object sender, BasicDeliverEventArgs eventArgs)
         {
             var weatherForecastInfo = JsonSerializer.Deserialize<WeatherForecastReceivedMessage>(eventArgs.Body.ToArray());
-            _logger.LogInformation("Received message from queue for processing");
+            _logger.LogInformation($"Received weather forecast message from queue for processing. " +
+                                    $"Date: {weatherForecastInfo.Date.ToString()} " +
+                                    $"Temperature in Celsius: {weatherForecastInfo.TemperatureInCelcius} " +
+                                    $"Summary: {weatherForecastInfo.Summary}");
 
             await _weatherForecastRepository.SaveWeatherForecastInformation(weatherForecastInfo.Date,
                                                         weatherForecastInfo.TemperatureInCelcius,

@@ -39,7 +39,10 @@ namespace WeatherForecastAdmin.Integrations
 
             var messageBytes = JsonSerializer.SerializeToUtf8Bytes(message);
             _channel.BasicPublish("", routingKey: queueName, basicProperties:null, body: messageBytes);
-            _logger.LogInformation("Published weather forecast notification");
+            _logger.LogInformation($"Published weather forecast notification. " +
+                                   $"Date: {date} " +
+                                   $"Temperature in Celsius: {temperatureInC} " +
+                                   $"Summary: {summary}");
         }
 
         public void Dispose()

@@ -2,9 +2,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WeatherForecastAdmin.Integrations;
 
 namespace WeatherForecastAdmin.Pages
@@ -34,11 +31,7 @@ namespace WeatherForecastAdmin.Pages
 
         public void OnPost()
         {
-            Console.WriteLine(Date.ToString());
-            Console.WriteLine(TemperatureInCelcius);
-            Console.WriteLine(Summary);
             _weatherForecastAddNotification.WeatherForecastAdded(Date, TemperatureInCelcius, Summary);
-
         }
     }
 }

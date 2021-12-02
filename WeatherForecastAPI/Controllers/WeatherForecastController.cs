@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace WeatherForecastAPI.Controllers
 {
@@ -11,25 +10,21 @@ namespace WeatherForecastAPI.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly WeatherDbContext weatherDbContext;
+        private readonly WeatherDbContext _weatherDbContext;
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger,
                                         WeatherDbContext weatherDbContext)
         {
             _logger = logger;
-            this.weatherDbContext = weatherDbContext;
+            _weatherDbContext = weatherDbContext;
         }
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            return weatherDbContext.WeatherForecasts.ToArray();
+            _logger.LogInformation("Loading weather forecast information");
+            return _weatherDbContext.WeatherForecasts.ToArray();
         }
     }
 }
