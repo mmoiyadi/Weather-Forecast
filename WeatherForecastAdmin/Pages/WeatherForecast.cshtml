@@ -1,0 +1,32 @@
+﻿@page
+@model WeatherForecastModel
+@{
+    ViewData["Title"] = "Weather Forecast Information";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Enter weather forecast information.</p>
+<body>
+    <form method="post" enctype="multipart/form-data" asp-controller="WeatherForecast" asp-action="Index">
+        <table>
+            <tr>
+                <td>Date: </td>
+                <td><input type="date" id="dtDate" name="date" /></td>
+            </tr>
+            <tr>
+                <td>Temperature (in Celcius): </td>
+                <td><input type="number" id="temperatureInC" name="temperatureInCelcius" /></td>
+            </tr>
+            <tr>
+                <td>Summary: </td>
+                <td><input type="text" id="txtSummary" name="summary" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Submit" /></td>
+            </tr>
+        </table>
+        <hr />
+        @ViewBag.Name
+     </form>
+</body>

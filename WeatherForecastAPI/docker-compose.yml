@@ -1,0 +1,68 @@
+version: '3.4'
+
+networks:
+  dockerapi-dev:
+    driver: bridge
+
+services:
+  weatherforecastapi:
+    container_name: 'weatherapi'
+    image: ${DOCKER_REGISTRY-}weatherforecastapi
+    ports:
+      - "8080:80"
+    depends_on:
+      - "weather-postgres"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - dockerapi-dev
+
+  weather-postgres:
+    container_name: 'weatherdb'
+    image: postgres:latest
+    ports:
+      - "5432"
+    #restart: always
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Real$$123
+      POSTGRES_DB: WeatherDb
+    networks:
+      - dockerapi-dev
+
+  weatherforecast-processor:
+    build:
+      context: .
+      dockerfile: ../WeatherForecastProcessor/Dockerfile
+    depends_on:
+      - "weather-postgres"
+      - "rabbit-mq"
+      - "weatherforecastapi"
+    networks:
+      - dockerapi-dev
+  
+  rabbit-mq:
+    container_name: 'rabbit-mq'
+    image: rabbitmq:3-management
+    ports:
+      - "15672"
+    networks:
+      - dockerapi-dev
+
+  weatherforecast-admin:
+    build:
+      context: .
+      dockerfile: ../WeatherForecastAdmin/Dockerfile
+    ports:
+      - "8081:80"
+    depends_on:
+      - "rabbit-mq"
+    networks:
+      - dockerapi-dev
+
+ 
+volumes:
+  db_volume:
