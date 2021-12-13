@@ -28,7 +28,7 @@ services:
       - db_volume:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Real$$123
+      POSTGRES_PASSWORD: PASSWORD
       POSTGRES_DB: WeatherDb
     networks:
       - dockerapi-dev
