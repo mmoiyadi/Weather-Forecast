@@ -9,7 +9,7 @@ services:
     container_name: 'weatherapi'
     
     ports:
-      - "8080:80"
+      - "8083:80"
     depends_on:
       - "weather-postgres"
     build:
@@ -28,7 +28,7 @@ services:
       - db_volume:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: PASSWORD
+      POSTGRES_PASSWORD: Real$$123
       POSTGRES_DB: WeatherDb
     networks:
       - dockerapi-dev
@@ -59,7 +59,7 @@ services:
       context: .
       dockerfile: ./WeatherForecastAdmin/Dockerfile
     ports:
-      - "8081:80"
+      - "8082:80"
     depends_on:
       - "rabbit-mq"
     networks:

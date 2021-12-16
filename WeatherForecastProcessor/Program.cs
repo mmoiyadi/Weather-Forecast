@@ -18,8 +18,6 @@ namespace WeatherForecastProcessor
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddSingleton<IDbConnection>(d =>
-                        new SqlConnection(hostContext.Configuration.GetConnectionString("WeatherDatabase")));
                     services.AddSingleton<IWeatherForecastRepository, WeatherForecastRepository>();
                     services.AddHostedService<Worker>();
                 });

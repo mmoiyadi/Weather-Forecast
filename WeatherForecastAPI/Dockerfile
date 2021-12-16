@@ -8,10 +8,10 @@ EXPOSE 5432
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["WeatherForecastAPI.csproj", "."]
-RUN dotnet restore "./WeatherForecastAPI.csproj"
+COPY ["WeatherForecastAPI/WeatherForecastAPI.csproj", "WeatherForecastAPI/"]
+RUN dotnet restore "WeatherForecastAPI/WeatherForecastAPI.csproj"
 COPY . .
-WORKDIR "/src/."
+WORKDIR "/src/WeatherForecastAPI"
 RUN dotnet build "WeatherForecastAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish

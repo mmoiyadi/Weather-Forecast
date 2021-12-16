@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using WeatherForecastAPI.Middlewares;
 
@@ -32,13 +33,13 @@ namespace WeatherForecastAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             app.UseExceptionHandlerMiddleware();
             using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
             var context = serviceScope.ServiceProvider.GetRequiredService<WeatherDbContext>();
             context.Database.Migrate();
-            
+            logger.LogInformation("Database Migrated sucessfully");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
